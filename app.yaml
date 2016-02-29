@@ -1,0 +1,42 @@
+application: demoversionassessment
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+
+
+handlers:
+- url: /images
+  static_dir: static/images
+
+- url: /images/(.*)
+  static_files: static/images/\1
+  upload: static/images/.*
+
+- url: /js
+  static_dir: static/js
+
+- url: /js_1
+  static_dir: static/js/js_1
+
+- url: /css/(.*)
+  static_files: static/css/\1
+  upload: static/css/.*
+
+- url: /json/(.*)
+  static_files: static/json/\1
+  upload: static/json/.*
+
+
+- url: /.*
+  script: main.app
+
+builtins:
+- remote_api: on
+
+
+libraries:
+- name: django
+  version: "latest"
+
