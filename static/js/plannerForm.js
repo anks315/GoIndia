@@ -1,6 +1,6 @@
 function showPlanner(plannerContainer){
 		var out ="";
-			 out = out + "</br><div class=\"panel panel-default\"><div class=\"panel-body\"><ul class=\"nav nav-tabs\"><li role=\"presentation\" id=\"one-way\" class=\"active\"><a href=\"#\">One-way trip</a></li><li role=\"presentation\" id=\"two-way\"><a href=\"#\">Return trip</a></li></ul><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"typeahead-container\"><div class=\"typeahead-field\"><div class=\"input-group\"><input class=\"form-control\" id=\"from\" name=\"queryStr\" placeholder=\"From:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"typeahead-container\"><div class=\"typeahead-field\"><div class=\"input-group\"><input class=\"form-control\" id=\"to\" name=\"queryStr\" placeholder=\"To:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"form-group\"><div class='input-group date' id='departure'><input type='text' class=\"form-control\" placeholder= \"Departure\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"form-group\"><div class='input-group date' id='return'><input type='text' class=\"form-control\" placeholder= \"Return\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><input type=\"submit\" id=\"search\" class=\"btn btn-info\" value=\"Search..\"></div><div class=\"col-sm-6 col-height col-middle\"></div></div></br></div></div>";
+			 out = out + "<div class=\"panel panel-default\"><div class=\"panel-body\"><ul class=\"nav nav-tabs\"><li role=\"presentation\" id=\"one-way\" class=\"active\"><a href=\"#\">One-way trip</a></li><li role=\"presentation\" id=\"two-way\"><a href=\"#\">Return trip</a></li></ul><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"typeahead-container\"><div class=\"typeahead-field\"><div class=\"input-group\"><input class=\"form-control\" id=\"from\" name=\"queryStr\" placeholder=\"From:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"typeahead-container\"><div class=\"typeahead-field\"><div class=\"input-group\"><input class=\"form-control\" id=\"to\" name=\"queryStr\" placeholder=\"To:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"form-group\"><div class='input-group date' id='departure'><input type='text' class=\"form-control\" placeholder= \"Departure\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"form-group\"><div class='input-group date' id='return'><input type='text' class=\"form-control\" placeholder= \"Return\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><input type=\"submit\" id=\"search\" class=\"btn btn-info\" value=\"Search..\"></div><div class=\"col-sm-6 col-height col-middle\"></div></div></div></div>";
 
 		document.getElementById("planner").innerHTML = out;
 		$("#return").hide();
@@ -210,9 +210,15 @@ function showPlanner(plannerContainer){
 		});
 		$( "#search" ).click(function() {
 				$("#planner").hide();
+				$("#mainPanel").show();
+				showSummary(options);
+				showSortMenuMain();
+				$("#summary").show();
+				$("#sortMenuMain").show();
 		});
    }
    
  $(document).ready(function(){
+	$("#mainPanel").hide();
 	showPlanner("planner");
 });
