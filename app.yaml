@@ -32,6 +32,9 @@ handlers:
 - url: /.*
   script: main.app
 
+- url: /train/(.*)
+  script: main.app
+
 builtins:
 - remote_api: on
 

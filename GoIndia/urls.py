@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'GoIndi.views.home'),
+    url(r'train$', 'GoIndi.views.trainapi'),
 )
