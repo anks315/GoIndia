@@ -3,13 +3,16 @@ table {
     padding: 0;
 }
 .journeySpecifics{
-	font-size : 80%;
+	font-size : 90%;
 }
 .journeySpecificsArrow{
 	font-size : 250%;
 }
 .journeySpecificsDuration{
-	font-size : 90%;
+	font-size : 80%;
+}
+.barView {
+	line-height : 40% ;
 }
 
 .btn-arrow-right,
