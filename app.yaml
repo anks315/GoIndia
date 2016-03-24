@@ -35,6 +35,9 @@ handlers:
 - url: /train/(.*)
   script: main.app
 
+- url: /flight/(.*)
+  script: main.app
+
 builtins:
 - remote_api: on
 
