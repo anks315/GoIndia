@@ -8,12 +8,15 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <link rel="stylesheet" href="/css/city/jquery.typeahead.css">
+  <link rel="stylesheet" href="/css/slider.css">
   <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
   <!--script src="../dist/jquery.typeahead.min.js"></script-->
   <script src="/js/city/jquery.typeahead.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <!--Load Script and Stylesheet -->
 	<script type="text/javascript" src="/js/dateatime/js/bootstrap-datepicker.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<link type="text/css" href="/css/dateatime/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<link type="text/css" href="/css/customButton.css" rel="stylesheet" />
 </head>
@@ -23,22 +26,43 @@
 	   <div class="row-eq-height">
 		  <div class="col-sm-2 col-height col-middle">
 		  </div>
-		  <div class="col-sm-2 col-height col-middle">
-		  </div>
-		  <div class="col-sm-6 col-height col-middle">
+		  <div class="col-sm-8 col-height col-middle">
 				</br>
-				<div id="planner"></div>
-				<div id="mainPanel">
-					<div class="row-eq-height">
-						<div id="summary"></div>
+				   <div class="row-eq-height">
+						<div class="col-sm-3 col-height col-middle">
+						</div>
+						<div class="col-sm-9 col-height col-middle">
+							<div id="planner"></div>
+						</div>
 					</div>
 					<div class="row-eq-height">
-						<div id="sortMenuMain"></div>
+						<div class="col-sm-3 col-height col-middle">
+						</div>
+						<div class="col-sm-9 col-height col-middle">
+							<div id="summary"></div>
+						</div>
 					</div>
 					<div class="row-eq-height">
-						<div id="modeMenuMain"></div>
+						<div class="col-sm-3 col-height col-middle">
+						</div>
+						<div class="col-sm-9 col-height col-middle">
+							<div id="sortMenuMain"></div>
+						</div>
 					</div>
-				</div>
+					<div class="row-eq-height">
+						<div class="col-sm-3 col-height col-middle">
+							<div class="panel panel-default"><div class="panel-body"><div data-role="rangeslider">
+        <label for="price-min">Price:</label>
+        <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+        <label for="price-max">Price:</label>
+        <input type="range" name="price-max" id="price-max" value="800" min="0" max="1000">
+      </div>
+							</div></div>
+						</div>
+					    <div class="col-sm-9 col-height col-middle">
+							<div id="modeMenuMain"></div>
+						</div>
+					</div>
 			</div>
 		  <div class="col-sm-2 col-height col-middle">
 		  </div>
