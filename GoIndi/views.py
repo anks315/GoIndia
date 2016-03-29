@@ -29,9 +29,11 @@ def trainapi(request):
     availableTrainNumbers = parseTrainBetweenStationsAndReturnTrainNumber(jsonResponseTrainBetweenStations)
     resultJsonData = {}
     resultJsonData["train"]=[]
+    trainCounter=0
     for trainNumber in availableTrainNumbers:
+        trainCounter=trainCounter+1
         jsonResponseTrainFare = urlfetch.fetch("http://api.railwayapi.com/fare/train/" + trainNumber + "/source/ndls/dest/bct/age/18/quota/GN/doj/15-03-2016/apikey/kylhf9760/",method=urlfetch.GET, deadline=45)
-        fareData=parseAndReturnFare(jsonResponseTrainFare)
+        fareData=parseAndReturnFare(jsonResponseTrainFare,trainCounter)
         if not fareData:
             pass
         else:

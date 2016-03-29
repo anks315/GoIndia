@@ -18,17 +18,31 @@ def parseTrainBetweenStationsAndReturnTrainNumber(jsonData):
     global trainNumberstoDurationMap
     for train in returnedData["train"]  :
             trainNumbers.append(train["number"])
-            trainNumberstoDurationMap[train["number"]]=train["travel_time"]
+            trainNumberstoDurationMap[train["number"]]={}
+            trainNumberstoDurationMap[train["number"]]["departure"]=train["src_departure_time"]
+            trainNumberstoDurationMap[train["number"]]["arrival"]=train["dest_arrival_time"]
+            trainNumberstoDurationMap[train["number"]]["duration"]=train["travel_time"]
+
     return  trainNumbers
 
-def parseAndReturnFare(jsonData):
+def parseAndReturnFare(jsonData,trainCounter):
     returnedFareData = json.loads(jsonData.content)
     route={}
     if len(returnedFareData["fare"])!=0:
         full={}
-        full["id"]=returnedFareData["train"]["name"]
+        full["carrierName"]=returnedFareData["train"]["name"]
         full["price"]=returnedFareData["fare"][0]["fare"]
-        full["duration"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]
+        full["duration"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["duration"]
+        full["id"]= "train"+str(trainCounter)
+        full["mode"]="train"
+        full["site"]="IRCTC"
+        full["source"]=returnedFareData["from"]["name"]
+        full["destination"]=returnedFareData["to"]["name"]
+        full["arrival"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["arrival"]
+        full["departure"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["departure"]
         route["full"]=full
+        parts=full
+        parts["id"]="train"+str(trainCounter)+str(1)
+        route["parts"]=parts
     return route
 
