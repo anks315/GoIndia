@@ -219,6 +219,8 @@ function showPlanner(plannerContainer){
    }
    
  $(document).ready(function(){
+	 
 	$("#mainPanel").hide();
 	showPlanner("planner");
+	$("#ex1").slider({});
 });

@@ -2,6 +2,15 @@ table {
 	border : 0;
     padding: 0;
 }
+.booking-details {
+	font-size : 160%;
+}
+.booking-details-price {
+	color : green;
+}
+.booking-details-duration {
+	color : blue;
+}
 .journeySpecifics{
 	font-size : 90%;
 }
@@ -10,6 +19,33 @@ table {
 }
 .journeySpecificsDuration{
 	font-size : 80%;
+}
+
+.detailsCity{
+	font-size : 150%;
+	
+}
+.detailsTime{
+	font-size : 80%;
+}
+.detailsMode{
+	font-size : 110%;
+	color: blue;
+}
+.detailsLabel{
+	font-size : 90%;
+	color:grey;
+}
+.detailsPrice{
+	font-size : 80%;
+	color:green;
+}
+.detailsDuration{
+	font-size : 80%;
+	color:grey;
+}
+#ex1Slider .slider-selection {
+	background-color: #BABABA;
 }
 .barView {
 	line-height : 40% ;
