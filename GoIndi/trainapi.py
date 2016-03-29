@@ -40,9 +40,11 @@ def parseAndReturnFare(jsonData,trainCounter):
         full["destination"]=returnedFareData["to"]["name"]
         full["arrival"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["arrival"]
         full["departure"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["departure"]
-        route["full"]=full
+        route["full"]=[]
+        route["parts"]=[]
+        route["full"].append(full)
         parts=full
         parts["id"]="train"+str(trainCounter)+str(1)
-        route["parts"]=parts
+        route["parts"].append(parts)
     return route
 
