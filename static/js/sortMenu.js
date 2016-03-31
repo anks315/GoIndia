@@ -7,7 +7,7 @@ function showSortMenuMain(){
 	document.getElementById("modeMenuMain").innerHTML = modeMenuMain;
 	
 	showBusJourneyList(busList);
-	showtransportJourneyList(trainList,"train");
+	
 	showtransportJourneyList(flightList,"flight");
 	
 	$( "#replan" ).click(function() {
