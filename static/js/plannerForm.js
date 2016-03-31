@@ -1,6 +1,6 @@
 function showPlanner(plannerContainer){
 		var out ="";
-			 out = out + "<div class=\"panel panel-default\"><div class=\"panel-body\"><ul class=\"nav nav-tabs\"><li role=\"presentation\" id=\"one-way\" class=\"active\"><a href=\"#\">One-way trip</a></li><li role=\"presentation\" id=\"two-way\"><a href=\"#\">Return trip</a></li></ul><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"input-group\"><input class=\"form-control\" id=\"from\" placeholder=\"From:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"input-group\"><input class=\"form-control\" id=\"to\" placeholder=\"To:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class='input-group' id='departure'><input class=\"form-control\" type='date' id='departureBox' class=\"form-control\" placeholder= \"Departure\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class='input-group date' id='return'><input class=\"form-control\" type='date' id='returnBox' class=\"form-control\" placeholder= \"Return\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><input type=\"submit\" id=\"search\" class=\"btn btn-info\" value=\"Search..\"></div><div class=\"col-sm-6 col-height col-middle\"></div></div></div></div>";
+			 out = out + "<div ng-app='myApp' ng-controller='myCtrl'><div class=\"panel panel-default\"><div class=\"panel-body\"><ul class=\"nav nav-tabs\"><li role=\"presentation\" id=\"one-way\" class=\"active\"><a href=\"#\">One-way trip</a></li><li role=\"presentation\" id=\"two-way\"><a href=\"#\">Return trip</a></li></ul><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"input-group\"><input class=\"form-control\" id=\"from\" placeholder=\"From:\" type=\"text\" autofocus autocomplete=\"off\" ng-focus='disableTap()'><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class=\"input-group\"><input class=\"form-control\" id=\"to\" placeholder=\"To:\" type=\"text\" autofocus autocomplete=\"off\"><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-home\"></span></span></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><div class='input-group' id='departure'><input class=\"form-control\" type='date' id='departureBox' class=\"form-control\" placeholder= \"Departure\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div><div class=\"col-sm-6 col-height col-middle\"></br><div class='input-group date' id='return'><input class=\"form-control\" type='date' id='returnBox' class=\"form-control\" placeholder= \"Return\"/><span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-calendar\"></span></span></div></div></div><div class=\"row\"><div class=\"col-sm-6 col-height col-middle\"></br><input type=\"submit\" id=\"search\" class=\"btn btn-info\" value=\"Search..\"></div><div class=\"col-sm-6 col-height col-middle\"></div></div></div></div></div>";
 
 		document.getElementById("planner").innerHTML = out;
 		//setting min date as today
@@ -43,6 +43,7 @@ function showPlanner(plannerContainer){
 		});
    }
  function initAutocomplete() {
+	 
 	  var options = {
   types: ['(cities)'],
   componentRestrictions: {country: "ind"}
@@ -59,7 +60,20 @@ function showPlanner(plannerContainer){
   var autocomplete = new google.maps.places.Autocomplete(toInput,options);
       google.maps.event.addListener(autocomplete, 'place_changed', function(){
          var place = autocomplete.getPlace();
-      })
+      });
+	  
+	 var app = angular.module('myApp', []);
+		app.controller('MyCtrl', function($scope) {
+		  $scope.disableTap = function(){
+			container = document.getElementsByClassName('pac-container');
+			// disable ionic data tab
+			angular.element(container).attr('data-tap-disabled', 'true');
+			// leave input field if google-address-entry is selected
+			angular.element(container).on("click", function(){
+				document.getElementById('from').blur();
+			});
+		  };
+		})
 } 
  $(document).ready(function(){
 	 
