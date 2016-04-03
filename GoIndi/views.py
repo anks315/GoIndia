@@ -9,6 +9,7 @@ import logging
 from google.appengine.ext import ndb
 import datetime
 import trainapi
+from flightapi import parseFlightAndReturnFare
 import urllib2
 import json
 from google.appengine.api import urlfetch
@@ -53,7 +54,7 @@ def flightapi(request):
                     {
                     "origin": "DEL",
                     "destination": "BLR",
-                    "date": "2016-03-20"
+                    "date": "2016-04-20"
                     }
                 ],
         "passengers": {
@@ -68,6 +69,6 @@ def flightapi(request):
     flight = urllib2.urlopen(req)
     response = flight.read()
     flight.close()
-    return HttpResponse(response, content_type='application/json')
+    return HttpResponse(json.dumps(parseFlightAndReturnFare(response)), content_type='application/json')
 
 
