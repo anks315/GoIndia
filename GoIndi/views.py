@@ -20,12 +20,15 @@ from django.core.context_processors import csrf
 # redirect to home page
 # html : homepage.html
 
+trainController = trainapi.TrainController()
 def home(request):
      return render_to_response('eazzer.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
 
 def trainapi(request):
     #response = urllib2.urlopen('http://railpnrapi.com/api/trains_between_stations/fscode/NDLS/tscode/CnB/date/10-03-2016/class/1A/orderby/time/format/json/pbapikey/14c98f7aca50827374ab773844a9ca1b/pbapisign/' + generateHash())
+    '''
     urlfetch.set_default_fetch_deadline(45)
+
     jsonResponseTrainBetweenStations = urlfetch.fetch("http://api.railwayapi.com/between/source/ndls/dest/bct/date/15-05/apikey/kylhf9760/",method=urlfetch.GET, deadline=45)
     availableTrainNumbers = parseTrainBetweenStationsAndReturnTrainNumber(jsonResponseTrainBetweenStations)
     resultJsonData = {}
@@ -40,7 +43,8 @@ def trainapi(request):
         else:
             resultJsonData["train"].append(fareData)
 
-
+    '''
+    resultJsonData = trainController.getRoutes('Delhi','Mumbai','15-05-2016')
     return HttpResponse(json.dumps(resultJsonData), content_type='application/json')
 
 def flightapi(request):
