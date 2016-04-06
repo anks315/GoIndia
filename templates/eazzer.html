@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Eazzer - Ultimate solution for your travel problems in india - Bus,Train,Flights,Cabs search and compare in one go</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -19,66 +19,73 @@
 	<link type="text/css" href="/css/customButton.css" rel="stylesheet" />
 </head>
 <body>
-<div class="container-fluid">
+<SCRIPT>
+function passWord() {
+var testV = 1;
+var pass1 = prompt('Please Enter Your Password',' ');
+while (testV < 3) {
+if (!pass1) 
+history.go(-1);
+if (pass1.toLowerCase() == "oyehoyeoyehoye") {
+$("#authenticate").hide();
+$("#allContent").show();
+break;
+} 
+testV+=1;
+var pass1 = 
+prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
+}
+if (pass1.toLowerCase()!="password" & testV ==3) 
+history.go(-1);
+return " ";
+} 
+</SCRIPT>
+<CENTER>
+<FORM>
+<input id="authenticate" type="button" value="Enter Protected Area" onClick="passWord()">
+</FORM>
+</CENTER>
+<div id ="allContent" class="container-fluid" hidden>
   <div class="row">
 	   <div class="row-eq-height">
-		  <div class="col-sm-2 col-height col-middle">
+		  <div class="col-sm-1 col-height col-middle">
 		  </div>
-		  <div class="col-sm-8 col-height col-middle">
+		  <div class="col-sm-10 col-height col-middle">
 				</br>
 				   <div class="row-eq-height">
-						<div class="col-sm-3 col-height col-middle">
+						<div class="col-sm-4 col-height col-middle">
 						</div>
-						<div class="col-sm-9 col-height col-middle">
+						<div class="col-sm-8 col-height col-middle">
 							<div id="planner"></div>
 						</div>
 					</div>
 					<div class="row-eq-height">
-						<div class="col-sm-3 col-height col-middle">
+						<div class="col-sm-4 col-height col-middle">
 						</div>
-						<div class="col-sm-9 col-height col-middle">
+						<div class="col-sm-8 col-height col-middle">
 							<div id="summary"></div>
 						</div>
 					</div>
 					<div class="row-eq-height">
-						<div class="col-sm-3 col-height col-middle">
+						<div class="col-sm-4 col-height col-middle">
 						</div>
-						<div class="col-sm-9 col-height col-middle">
+						<div class="col-sm-8 col-height col-middle">
 							<div id="sortMenuMain"></div>
 						</div>
 					</div>
 					<div class="row-eq-height">
-						<div class="col-sm-3 col-height col-middle">
-							<div class="panel panel-default"><div class="panel-body">
-		<script>
-  $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        document.getElementById("amount").innerHTML = "&#8377; " + ui.values[ 0 ] + " - &#8377; " + ui.values[ 1 ];
-      }
-    });
-    document.getElementById("amount").innerHTML = "&#8377; " + $( "#slider-range" ).slider( "values", 0 ) +
-      " - &#8377; " + $( "#slider-range" ).slider( "values", 1 ) ;
-  });
-  </script>
-  <p>
-  <label for="amount">Price range:</label>
-  <div id="amount" style="border:0; color:#f6931f; font-weight:bold;"></div>
-</p>
-  <div id="slider-range"></div>
-      </div>
-							</div></div>
-						</div>
-					    <div class="col-sm-9 col-height col-middle">
+						<div class="col-sm-4 col-height col-middle">
+						  <div id = "busFilters" hidden></div>
+						  <div id = "trainFilters" hidden></div>
+						  <div id = "flightFilters" hidden></div>
+						  
+						</div>	
+					    <div class="col-sm-8 col-height col-middle">
 							<div id="modeMenuMain"></div>
 						</div>
 					</div>
 			</div>
-		  <div class="col-sm-2 col-height col-middle">
+		  <div class="col-sm-1 col-height col-middle">
 		  </div>
 	   </div>
   </div>
@@ -86,7 +93,11 @@
 <script type="text/javascript" src="/js/summary.js"></script>
 <script type="text/javascript" src="/js/trainAndFlightJourneyList.js"></script>
 <script type="text/javascript" src="/js/busJourneyList.js"></script>
+<script type="text/javascript" src="/js/sortUtility.js"></script>
 <script type="text/javascript" src="/js/sortMenu.js"></script>
+<script type="text/javascript" src="/js/trainFilters.js"></script>
+<script type="text/javascript" src="/js/flightFilters.js"></script>
+<script type="text/javascript" src="/js/busFilters.js"></script>
 <script type="text/javascript" src="/js/plannerForm.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=gb"></script>
 
