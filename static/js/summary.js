@@ -59,7 +59,7 @@ function showSummary(){
 		widlist = widlist + "<tr><td   style = 'text-align: center;white-space: nowrap'><font color='"+priceColor+"'>&#8377 "+options[i].full[0].price+"/-&nbsp;&nbsp</font></td><td><table width = '100%'><tr>"+wid+"</tr></table></td><td  style = 'text-align: center;white-space: nowrap'><font color='"+durationColor+"'>&nbsp;&nbsp"+options[i].full[0].duration+" Hr</font></td></tr>";
 	}
 	
-	 var output = "<br/><div class='panel panel-default'><div class='panel-body'><table width = '100%'><tr><th  style = 'text-align: center'><font color='grey'>Price</font></th><th></th><th  style = 'text-align: center'><font color='grey'>Duration</font></th></tr>"+widlist+"</table></div></div>";
+	 var output = "<div class='panel panel-default'><div class='panel-body'><table width = '100%'><tr><th  style = 'text-align: center'><font color='grey'>Price</font></th><th></th><th  style = 'text-align: center'><font color='grey'>Duration</font></th></tr>"+widlist+"</table></div></div>";
 	 
 	 document.getElementById("summary").innerHTML = output;
 	

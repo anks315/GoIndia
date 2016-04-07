@@ -1,3 +1,6 @@
+var directionsService;
+var directionsDisplay;
+
 function showPlanner(plannerContainer){
 		var out ="";
 			 out = out + "<div ng-app='myApp' ng-controller='myCtrl'><div class='panel panel-default'><div class='panel-body'><ul class='nav nav-tabs'><li role='presentation' id='one-way' class='active'><a href='#'>One-way trip</a></li><li role='presentation' id='two-way'><a href='#'>Return trip</a></li></ul><div class='row'><div class='col-sm-6 col-height col-middle'></br><div class='input-group'><input class='form-control' id='from' placeholder='From:' type='text' autofocus autocomplete='off' ng-focus='disableTap()'><span class='input-group-addon'><span class='glyphicon glyphicon-home'></span></span></div></div><div class='col-sm-6 col-height col-middle'></br><div class='input-group'><input class='form-control' id='to' placeholder='To:' type='text' autofocus autocomplete='off'><span class='input-group-addon'><span class='glyphicon glyphicon-home'></span></span></div></div></div><div class='row'><div class='col-sm-6 col-height col-middle'></br><div class='input-group' id='departure'><input class='form-control' type='date' id='departureBox' class='form-control' placeholder= 'Departure'/><span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><div class='col-sm-6 col-height col-middle'></br><div class='input-group date' id='return'><input class='form-control' type='date' id='returnBox' class='form-control' placeholder= 'Return'/><span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div></div><div class='row'><div class='col-sm-6 col-height col-middle'></br><input type='submit' id='search' class='btn btn-info' value='Search..'></div><div class='col-sm-6 col-height col-middle'></div></div></div></div></div>";
@@ -41,6 +44,9 @@ function showPlanner(plannerContainer){
 				$("#summary").show();
 				$("#sortMenuMain").show();
 				
+				$("#map").show();
+				initMap();
+				calculateAndDisplayRoute(directionsService, directionsDisplay);
 		});
    }
  function initAutocomplete() {
@@ -76,6 +82,32 @@ function showPlanner(plannerContainer){
 		  };
 		})
 } 
+
+function initMap() {
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 7,
+    center: {lat: 41.85, lng: -87.65}
+  });
+  directionsDisplay.setMap(map);
+ 
+
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: document.getElementById('from').value,
+    destination: document.getElementById('to').value,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+}
  $(document).ready(function(){
 	 
 	$("#mainPanel").hide();
