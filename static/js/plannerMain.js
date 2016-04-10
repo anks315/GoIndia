@@ -42,33 +42,26 @@ function showPlanner(plannerContainer){
 					document.getElementById("to").value="Required";
 					failure = "TRUE"
 				}
-				if(document.getElementById("departureBox").value == ""){
+				var depDate = document.getElementById("departureBox").value;
+				if(depDate == ""){
 					document.getElementById("departureBox").value="Required";
 					failure = "TRUE"
 				}
-				if(document.getElementById("two-way").class=="active"||document.getElementById("departureBox").value == ""){
+				
+				var retDate = document.getElementById("returnBox").value;
+				if(document.getElementById("two-way").class=="active"&& retDate == ""){
 					document.getElementById("departureBox").value="Required";
 					failure = "TRUE"
 				}
 				if(failure == "TRUE"){
 					return;
 				}
-				/*$.getJSON('train', function(data, err) {
-				  if (err != "success") {
-				  } else {
-					showtransportJourneyList(data.train,"train");
-				  }
-				});*/
-				$("#planner").hide();
-				$("#mainPanel").show();
-				showSummary();
-				showSortMenuMain();
-				$("#summary").show();
-				$("#sortMenuMain").show();
 				
-				$("#map").show();
-				initMap();
-				calculateAndDisplayRoute(directionsService, directionsDisplay);
+				var fromLoc = document.getElementById("from").value;
+				var toLoc = document.getElementById("to").value;
+				
+				window.location.href = "main?from="+fromLoc+"&to="+toLoc+"&dep="+depDate+"&ret="+retDate;
+				
 		});
    }
  function initAutocomplete() {
@@ -105,63 +98,10 @@ function showPlanner(plannerContainer){
 		})
 } 
 
-function initMap() {
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7,
-    center: {lat: 41.85, lng: -87.65}
-  });
-  directionsDisplay.setMap(map);
- 
 
-}
 
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-  directionsService.route({
-    origin: document.getElementById('from').value,
-    destination: document.getElementById('to').value,
-    travelMode: google.maps.TravelMode.DRIVING
-  }, function(response, status) {
-    if (status === google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
-  });
-}
  $(document).ready(function(){
 	 
-	$("#mainPanel").hide();
-	var urlParams = getUrlVars();
 	showPlanner("planner");
-	document.getElementById('from').value = urlParams.from.replace("%20", " ");
-	document.getElementById('to').value = urlParams.to.replace("%20", " ");
-	document.getElementById('departureBox').value = urlParams.dep;
-	var retDate="urlParams.ret";
-	if(retDate!=""){
-		document.getElementById('returnBox').value = urlParams.ret;
-		$('#two-way').attr('class','active');
-		$('#one-way').removeAttr('class','active');
-	}
 	initAutocomplete();
-	$("#planner").hide();
-	$("#mainPanel").show();
-	showSummary();
-	showSortMenuMain();
-	$("#summary").show();
-	$("#sortMenuMain").show();
-	
-	$("#map").show();
-	initMap();
-	calculateAndDisplayRoute(directionsService, directionsDisplay);
 });
-
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
-    function(m,key,value) {
-      vars[key] = value;
-    });
-    return vars;
-  }

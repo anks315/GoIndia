@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'GoIndi.views.home'),
+	url(r'main$', 'GoIndi.views.main'),
     url(r'train$', 'GoIndi.views.trainapi'),
     url(r'flight$', 'GoIndi.views.flightapi'),
 )

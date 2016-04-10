@@ -24,6 +24,9 @@ trainController = trainapi.TrainController()
 def home(request):
      return render_to_response('eazzer.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
 
+def main(request):
+     return render_to_response('main.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
+
 def trainapi(request):
     #response = urllib2.urlopen('http://railpnrapi.com/api/trains_between_stations/fscode/NDLS/tscode/CnB/date/10-03-2016/class/1A/orderby/time/format/json/pbapikey/14c98f7aca50827374ab773844a9ca1b/pbapisign/' + generateHash())
     '''
