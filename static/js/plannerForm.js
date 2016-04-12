@@ -1,11 +1,13 @@
 var placeFrom = "EMPTY"
 var placeTo = "EMPTY"
+var IsFromChange = true
+var IsToChange = true
 var directionsService;
 var directionsDisplay;
 
 function showPlanner(plannerContainer){
 		var out ="";
-			 out = out + "<div ng-app='myApp' ng-controller='myCtrl'><div class='panel panel-default'><div class='panel-body'><ul class='nav nav-tabs'><li role='presentation' id='one-way' class='active'><a href='#'>One-way trip</a></li><li role='presentation' id='two-way'><a href='#'>Return trip</a></li></ul><div class='row'><div class='col-sm-6 col-height col-middle'></br><div class='input-group'><input class='form-control' id='from' placeholder='From:' type='text' autofocus autocomplete='off' ng-focus='disableTap()'><span class='input-group-addon'><span class='glyphicon glyphicon-home'></span></span></div></div><div class='col-sm-6 col-height col-middle'></br><div class='input-group'><input class='form-control' id='to' placeholder='To:' type='text' autofocus autocomplete='off'><span class='input-group-addon'><span class='glyphicon glyphicon-home'></span></span></div></div></div><div class='row'><div class='col-sm-6 col-height col-middle'></br><div class='input-group' id='departure'><input class='form-control' type='date' id='departureBox' class='form-control' placeholder= 'Departure'/><span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><div class='col-sm-6 col-height col-middle'></br><div class='input-group date' id='return'><input class='form-control' type='date' id='returnBox' class='form-control' placeholder= 'Return'/><span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div></div><div class='row'><div class='col-sm-6 col-height col-middle'></br><input type='submit' id='search' class='btn btn-info' value='Search..'></div><div class='col-sm-6 col-height col-middle'></div></div></div></div></div>";
+			 out = out + "<nav role='navigation' class='navbar navbar-default'><div class='navbar-header'><button type='button' data-target='#navbarCollapse' data-toggle='collapse' class='navbar-toggle'><span class='sr-only'>Toggle navigation</span><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></button></div><div id='navbarCollapse' class='collapse navbar-collapse'><ul class='nav navbar-nav navbar-center'><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='from' placeholder='From:' type='text' autofocus autocomplete='off' ng-focus='disableTap()'></div></li><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='to' placeholder='To:' type='text' autofocus autocomplete='off'></div></li><li><div id='departure' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='date' id='departureBox' class='form-control' placeholder= 'Departure'/><div></li><li><div id='return' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='date' id='returnBox' class='form-control' placeholder= 'Return'/></div></li><li><br/><label class='radio-inline'><input type='radio' checked class='active' id='one-way'>One-Way</label><label class='radio-inline'><input type='radio' id='two-way'>Two-Way</label></li><li><div style='padding-bottom: 15px;padding-left: 5px;padding-right: 1px;padding-top: 15px;'><input type='submit' id='search' class='btn btn-info' value='Search'></div></li></ul></div></nav>";
 
 		document.getElementById("planner").innerHTML = out;
 		//setting min date as today
@@ -21,32 +23,36 @@ function showPlanner(plannerContainer){
 		
 		
 		$( "#one-way" ).click(function() {
-				$('#one-way').attr('class','active')
-				$('#two-way').removeAttr('class','active')
+				$('#one-way').attr('checked',1);
+				$('#one-way').attr('class','active');
+				$('#two-way').removeAttr('checked',1);
+				$('#two-way').removeAttr('class','active');
 				$("#return").hide();
 				
 		});
 		$( "#two-way" ).click(function() {
-				$('#two-way').attr('class','active')
-				$('#one-way').removeAttr('class','active')
+				$('#two-way').attr('checked',1);
+				$('#two-way').attr('class','active');
+				$('#one-way').removeAttr('checked',1);
+				$('#one-way').removeAttr('class','active');
 				$("#return").show();
 				
 		});
 		$( "#search" ).click(function() {
 				var failure = "FALSE";
-			    if(placeFrom == "EMPTY" || (placeFrom.address_components[0].long_name+", "+placeFrom.address_components[2].long_name+", "+placeFrom.address_components[3].long_name) != document.getElementById("from").value){
-					document.getElementById("from").value="Required";
+			    if(placeFrom == "EMPTY" || IsFromChange==false){
+					document.getElementById("from").value="From:";
 					failure = "TRUE"
 				}
-				if(placeTo == "EMPTY" || (placeTo.address_components[0].long_name+", "+placeTo.address_components[2].long_name+", "+placeTo.address_components[3].long_name)  != document.getElementById("to").value){
-					document.getElementById("to").value="Required";
+				if(placeTo == "EMPTY" || IsToChange==false){
+					document.getElementById("to").value="To:";
 					failure = "TRUE"
 				}
 				if(document.getElementById("departureBox").value == ""){
 					document.getElementById("departureBox").value="Required";
 					failure = "TRUE"
 				}
-				if(document.getElementById("two-way").class=="active"||document.getElementById("departureBox").value == ""){
+				if(document.getElementById("two-way").checked==1||document.getElementById("departureBox").value == ""){
 					document.getElementById("departureBox").value="Required";
 					failure = "TRUE"
 				}
@@ -59,7 +65,6 @@ function showPlanner(plannerContainer){
 					showtransportJourneyList(data.train,"train");
 				  }
 				});*/
-				$("#planner").hide();
 				$("#mainPanel").show();
 				showSummary();
 				showSortMenuMain();
@@ -83,12 +88,14 @@ function showPlanner(plannerContainer){
   var autocompleteFrom = new google.maps.places.Autocomplete(fromInput,options);
       google.maps.event.addListener(autocompleteFrom, 'place_changed', function(){
           placeFrom = autocompleteFrom.getPlace();
+		  IsFromChange = true;
       })
 
   var toInput = document.getElementById('to');
   var autocompleteTo = new google.maps.places.Autocomplete(toInput,options);
       google.maps.event.addListener(autocompleteTo, 'place_changed', function(){
           placeTo = autocompleteTo.getPlace();
+		  IsToChange = true;
       });
 	  
 	 var app = angular.module('myApp', []);
@@ -103,6 +110,14 @@ function showPlanner(plannerContainer){
 			});
 		  };
 		})
+		
+		$("#from").keydown(function () {
+            IsFromChange = false;
+        });
+		
+	$("#to").keydown(function () {
+            IsToChange = false;
+        });
 } 
 
 function initMap() {
@@ -135,17 +150,20 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 	$("#mainPanel").hide();
 	var urlParams = getUrlVars();
 	showPlanner("planner");
-	document.getElementById('from').value = urlParams.from.replace("%20", " ");
-	document.getElementById('to').value = urlParams.to.replace("%20", " ");
+	document.getElementById('from').value = urlParams.from.replace(/\%20/g, " ");
+	document.getElementById('to').value = urlParams.to.replace(/\%20/g, " ");
+	placeFrom = document.getElementById('from').value;
+	placeTo = document.getElementById('to').value;
 	document.getElementById('departureBox').value = urlParams.dep;
-	var retDate="urlParams.ret";
+	var retDate=urlParams.ret;
 	if(retDate!=""){
 		document.getElementById('returnBox').value = urlParams.ret;
+		$('#two-way').attr('checked',1);
 		$('#two-way').attr('class','active');
+		$('#one-way').removeAttr('checked',1);
 		$('#one-way').removeAttr('class','active');
 	}
 	initAutocomplete();
-	$("#planner").hide();
 	$("#mainPanel").show();
 	showSummary();
 	showSortMenuMain();

@@ -1,5 +1,7 @@
 var placeFrom = "EMPTY"
 var placeTo = "EMPTY"
+var IsFromChange = false
+var IsToChange = false
 var directionsService;
 var directionsDisplay;
 
@@ -34,12 +36,12 @@ function showPlanner(plannerContainer){
 		});
 		$( "#search" ).click(function() {
 				var failure = "FALSE";
-			    if(placeFrom == "EMPTY" || (placeFrom.address_components[0].long_name+", "+placeFrom.address_components[2].long_name+", "+placeFrom.address_components[3].long_name) != document.getElementById("from").value){
-					document.getElementById("from").value="Required";
+			    if(placeFrom == "EMPTY" || IsFromChange==false){
+					document.getElementById("from").value="From:";
 					failure = "TRUE"
 				}
-				if(placeTo == "EMPTY" || (placeTo.address_components[0].long_name+", "+placeTo.address_components[2].long_name+", "+placeTo.address_components[3].long_name)  != document.getElementById("to").value){
-					document.getElementById("to").value="Required";
+				if(placeTo == "EMPTY" || IsToChange==false){
+					document.getElementById("to").value="To:";
 					failure = "TRUE"
 				}
 				var depDate = document.getElementById("departureBox").value;
@@ -76,12 +78,14 @@ function showPlanner(plannerContainer){
   var autocompleteFrom = new google.maps.places.Autocomplete(fromInput,options);
       google.maps.event.addListener(autocompleteFrom, 'place_changed', function(){
           placeFrom = autocompleteFrom.getPlace();
+		  IsFromChange = true;
       })
 
   var toInput = document.getElementById('to');
   var autocompleteTo = new google.maps.places.Autocomplete(toInput,options);
       google.maps.event.addListener(autocompleteTo, 'place_changed', function(){
           placeTo = autocompleteTo.getPlace();
+		  IsToChange = true
       });
 	  
 	 var app = angular.module('myApp', []);
@@ -96,6 +100,16 @@ function showPlanner(plannerContainer){
 			});
 		  };
 		})
+		
+		
+	$("#from").keydown(function () {
+            IsFromChange = false;
+        });
+		
+	$("#to").keydown(function () {
+            IsToChange = false;
+			
+        });
 } 
 
 
