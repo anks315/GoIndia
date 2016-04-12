@@ -27,6 +27,9 @@ def home(request):
 def main(request):
      return render_to_response('main.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
 
+def test(request):
+     return render_to_response('index.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
+
 def trainapi(request):
     #response = urllib2.urlopen('http://railpnrapi.com/api/trains_between_stations/fscode/NDLS/tscode/CnB/date/10-03-2016/class/1A/orderby/time/format/json/pbapikey/14c98f7aca50827374ab773844a9ca1b/pbapisign/' + generateHash())
     '''
@@ -47,7 +50,13 @@ def trainapi(request):
             resultJsonData["train"].append(fareData)
 
     '''
-    resultJsonData = trainController.getRoutes('Delhi','Mumbai','15-05-2016')
+    source = request.GET['source']
+    destination = request.GET['destination']
+    journeyDate = request.GET['journeyDate']
+    session = get_current_session()
+    session['source']=source
+    session['destination']=destination
+    resultJsonData = trainController.getRoutes(source,destination,journeyDate)
     return HttpResponse(json.dumps(resultJsonData), content_type='application/json')
 
 def flightapi(request):
