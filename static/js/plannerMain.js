@@ -46,13 +46,13 @@ function showPlanner(plannerContainer){
 				}
 				var depDate = document.getElementById("departureBox").value;
 				if(depDate == ""){
-					document.getElementById("departureBox").value="Required";
+					document.getElementById("departureBox").value="";
 					failure = "TRUE"
 				}
 				
 				var retDate = document.getElementById("returnBox").value;
 				if(document.getElementById("two-way").class=="active"&& retDate == ""){
-					document.getElementById("departureBox").value="Required";
+					document.getElementById("returnBox").value="";
 					failure = "TRUE"
 				}
 				if(failure == "TRUE"){

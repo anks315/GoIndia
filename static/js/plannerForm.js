@@ -49,11 +49,11 @@ function showPlanner(plannerContainer){
 					failure = "TRUE"
 				}
 				if(document.getElementById("departureBox").value == ""){
-					document.getElementById("departureBox").value="Required";
+					document.getElementById("departureBox").value="";
 					failure = "TRUE"
 				}
-				if(document.getElementById("two-way").checked==1||document.getElementById("departureBox").value == ""){
-					document.getElementById("departureBox").value="Required";
+				if(document.getElementById("two-way").checked==true&&document.getElementById("returnBox").value == ""){
+					document.getElementById("returnBox").value="";
 					failure = "TRUE"
 				}
 				if(failure == "TRUE"){
