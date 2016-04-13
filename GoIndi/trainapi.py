@@ -34,27 +34,32 @@ def parseTrainBetweenStationsAndReturnTrainNumber(jsonData):
 
 
 def parseAndReturnFare(jsonData,trainCounter):
-    returnedFareData = json.loads(jsonData.content)
     route={}
-    session = get_current_session()
-    if len(returnedFareData["fare"])!=0:
-        full={}
-        full["carrierName"]=returnedFareData["train"]["name"]
-        full["price"]=returnedFareData["fare"][0]["fare"]
-        full["duration"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["duration"]
-        full["id"]= "train"+str(trainCounter)
-        full["mode"]="train"
-        full["site"]="IRCTC"
-        full["source"]=session['source']
-        full["destination"]=session['destination']
-        full["arrival"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["arrival"]
-        full["departure"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["departure"]
-        route["full"]=[]
-        route["parts"]=[]
-        route["full"].append(full)
-        parts=full
-        parts["id"]="train"+str(trainCounter)+str(1)
-        route["parts"].append(parts)
+    try:
+
+        returnedFareData = json.loads(jsonData.content)
+
+        session = get_current_session()
+        if len(returnedFareData["fare"])!=0:
+            full={}
+            full["carrierName"]=returnedFareData["train"]["name"]
+            full["price"]=returnedFareData["fare"][0]["fare"]
+            full["duration"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["duration"]
+            full["id"]= "train"+str(trainCounter)
+            full["mode"]="train"
+            full["site"]="IRCTC"
+            full["source"]=session['source']
+            full["destination"]=session['destination']
+            full["arrival"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["arrival"]
+            full["departure"]=trainNumberstoDurationMap[returnedFareData["train"]["number"]]["departure"]
+            route["full"]=[]
+            route["parts"]=[]
+            route["full"].append(full)
+            parts=full
+            parts["id"]="train"+str(trainCounter)+str(1)
+            route["parts"].append(parts)
+    except ValueError:
+        return route
     return route
 
 
