@@ -7,17 +7,19 @@ var directionsDisplay;
 
 function showPlanner(plannerContainer){
 		var out ="";
-			 out = out + "<nav role='navigation' class='navbar navbar-default'><div class='navbar-header'><button type='button' data-target='#navbarCollapse' data-toggle='collapse' class='navbar-toggle'><span class='sr-only'>Toggle navigation</span><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></button></div><div id='navbarCollapse' class='collapse navbar-collapse'><ul class='nav navbar-nav navbar-center'><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='from' placeholder='From:' type='text' autofocus autocomplete='off' ng-focus='disableTap()'></div></li><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='to' placeholder='To:' type='text' autofocus autocomplete='off'></div></li><li><div id='departure' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='date' id='departureBox' class='form-control' placeholder= 'Departure'/><div></li><li><div id='return' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='date' id='returnBox' class='form-control' placeholder= 'Return'/></div></li><li><br/><label class='radio-inline'><input type='radio' checked class='active' id='one-way'>One-Way</label><label class='radio-inline'><input type='radio' id='two-way'>Two-Way</label></li><li><div style='padding-bottom: 15px;padding-left: 5px;padding-right: 1px;padding-top: 15px;'><input type='submit' id='search' class='btn btn-info' value='Search'></div></li></ul></div></nav>";
+			 out = out + "<nav role='navigation' class='navbar navbar-default'><div class='navbar-header'><button type='button' data-target='#navbarCollapse' data-toggle='collapse' class='navbar-toggle'><span class='sr-only'>Toggle navigation</span><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></button></div><div id='navbarCollapse' class='collapse navbar-collapse'><ul class='nav navbar-nav navbar-center'><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='from' placeholder='From:' type='text' autofocus autocomplete='off' ng-focus='disableTap()'></div></li><li><div style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' id='to' placeholder='To:' type='text' autofocus autocomplete='off'></div></li><li><div id='departure' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='text' id='departureBox' class='form-control' placeholder= 'Departure'/><div></li><li><div id='return' style='padding-bottom: 15px;padding-left: 2.5px;padding-right: 2.5px;padding-top: 15px;'><input class='form-control' type='text' id='returnBox' class='form-control' placeholder= 'Return'/></div></li><li><br/><label class='radio-inline'><input type='radio' checked class='active' id='one-way'>One-Way</label><label class='radio-inline'><input type='radio' id='two-way'>Return</label></li><li><div style='padding-bottom: 15px;padding-left: 5px;padding-right: 1px;padding-top: 15px;text-align:right'><input type='submit' id='search' class='btn btn-info' value='Search'></div></li></ul></div></nav>";
 
 		document.getElementById("planner").innerHTML = out;
 		//setting min date as today
+		$('#departureBox').datepicker({ minDate: 0, maxDate: "+1Y" });
+		$('#returnBox').datepicker({ minDate: 0, maxDate: "+1Y" });
 		var dt= new Date();
 		   var yyyy = dt.getFullYear().toString();
 		   var mm = (dt.getMonth()+1).toString(); // getMonth() is zero-based
 		   var dd  = dt.getDate().toString();
 		   var min = yyyy +'-'+ (mm[1]?mm:"0"+mm[0]) +'-'+ (dd[1]?dd:"0"+dd[0]); // padding
-		$('#departureBox').prop('min',min);
-		$('#returnBox').prop('min',min);
+		//$('#departureBox').prop('min',min);
+		//$('#returnBox').prop('min',min);
 		$("#return").hide();
 		
 		
@@ -59,12 +61,18 @@ function showPlanner(plannerContainer){
 				if(failure == "TRUE"){
 					return;
 				}
-				/*$.getJSON('train', function(data, err) {
+				var fromStation = document.getElementById('from').value.split(",")[0];
+				var toStation = document.getElementById('to').value.split(",")[0];
+				var depDateArr = document.getElementById('departureBox').value.split("/");
+				var depDate = depDateArr[1]+"-"+depDateArr[0]+"-"+depDateArr[2]
+				$.getJSON('train?source='+fromStation+'&destination='+toStation+'&journeyDate='+depDate+'', function(data, err) {
 				  if (err != "success") {
 				  } else {
-					showtransportJourneyList(data.train,"train");
+					  trainList = data.train
+					showtransportJourneyList(trainList,"train");
+					trainFilters();
 				  }
-				});*/
+				});
 				$("#mainPanel").show();
 				showSummary();
 				showSortMenuMain();
@@ -163,6 +171,20 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 		$('#one-way').removeAttr('checked',1);
 		$('#one-way').removeAttr('class','active');
 	}
+	var fromStation = document.getElementById('from').value.split(",")[0];
+	var toStation = document.getElementById('to').value.split(",")[0];
+	var depDateArr = document.getElementById('departureBox').value.split("/");
+	var depDate = depDateArr[1]+"-"+depDateArr[0]+"-"+depDateArr[2]
+	$.getJSON('train?source='+fromStation+'&destination='+toStation+'&journeyDate='+depDate, function(data, err) {
+					
+				  if (err != "success") {
+				  } else {
+					  trainList = data.train
+					showtransportJourneyList(trainList,"train");
+					trainFilters();
+				  }
+				  
+				});
 	initAutocomplete();
 	$("#mainPanel").show();
 	showSummary();

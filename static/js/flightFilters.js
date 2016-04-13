@@ -28,17 +28,17 @@ function flightFilters(){
 		var durArr = duration.split(":");
 		duration = durArr[1]*1+durArr[0]*60;
 		
-		if(price < flightLeastPrice){
-			flightLeastPrice = price;
+		if((price*1) < (trainLeastPrice*1)){
+			trainLeastPrice = price;
 		}
-		if(price > maxPrice){
+		if((price*1) > (maxPrice*1)){
 			maxPrice = price;
 		}
 		
-		if(duration < flightLeastDuration){
-			flightLeastDuration = duration;
+		if((duration*1) < (trainLeastDuration*1)){
+			trainLeastDuration = duration;
 		}
-		if(duration > maxDuration){
+		if((duration*1) > (maxDuration*1)){
 			maxDuration = duration;
 		}
 	}	;

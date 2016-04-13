@@ -2,7 +2,7 @@ function SortListByPrice(list){
 				function SortByPrice(a,b){
 					var aPrice = a.full[0].price;
 					var bPrice = b.full[0].price;
-					return ((aPrice<bPrice)?-1:((aPrice>bPrice)?1:0));
+					return (((aPrice*1)<(bPrice*1))?-1:(((aPrice*1)>(bPrice*1))?1:0));
 				}
 				list.sort(SortByPrice);
 }
@@ -14,8 +14,8 @@ function SortListByDuration(list){
 					var aMins = aDuration.split(":")[1];
 					var bHrs = bDuration.split(":")[0];
 					var bMins = bDuration.split(":")[1];
-					var HrsRel = ((aHrs<bHrs)?-1:((aHrs>bHrs)?1:0));
-					var MinsRel = ((aMins<bMins)?-1:((aMins>bMins)?1:0));
+					var HrsRel = (((aHrs*1)<(bHrs*1))?-1:(((aHrs*1)>(bHrs*1))?1:0));
+					var MinsRel = (((aMins*1)<(bMins*1))?-1:(((aMins*1)>(bMins*1))?1:0));
 					if(HrsRel != 0){
 						return HrsRel;
 					} else {
