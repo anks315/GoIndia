@@ -31,25 +31,6 @@ def test(request):
      return render_to_response('index.html',{'loginurl': users.create_login_url('/'),},context_instance = RequestContext(request))
 
 def trainapi(request):
-    #response = urllib2.urlopen('http://railpnrapi.com/api/trains_between_stations/fscode/NDLS/tscode/CnB/date/10-03-2016/class/1A/orderby/time/format/json/pbapikey/14c98f7aca50827374ab773844a9ca1b/pbapisign/' + generateHash())
-    '''
-    urlfetch.set_default_fetch_deadline(45)
-
-    jsonResponseTrainBetweenStations = urlfetch.fetch("http://api.railwayapi.com/between/source/ndls/dest/bct/date/15-05/apikey/kylhf9760/",method=urlfetch.GET, deadline=45)
-    availableTrainNumbers = parseTrainBetweenStationsAndReturnTrainNumber(jsonResponseTrainBetweenStations)
-    resultJsonData = {}
-    resultJsonData["train"]=[]
-    trainCounter=0
-    for trainNumber in availableTrainNumbers:
-        trainCounter=trainCounter+1
-        jsonResponseTrainFare = urlfetch.fetch("http://api.railwayapi.com/fare/train/" + trainNumber + "/source/ndls/dest/bct/age/18/quota/GN/doj/15-03-2016/apikey/kylhf9760/",method=urlfetch.GET, deadline=45)
-        fareData=parseAndReturnFare(jsonResponseTrainFare,trainCounter)
-        if not fareData:
-            pass
-        else:
-            resultJsonData["train"].append(fareData)
-
-    '''
     source = request.GET['source']
     destination = request.GET['destination']
     journeyDate = request.GET['journeyDate']
@@ -63,7 +44,6 @@ def flightapi(request):
     api_key = "AIzaSyAgFB2oxb44p3tgUM-baPQsT2eN_Vz1TVQ"
     url = "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + api_key
     headers = {'content-type': 'application/json'}
-
     params = {
         "request": {
         "slice": [

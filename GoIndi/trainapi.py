@@ -61,8 +61,8 @@ def parseAndReturnFare(jsonData,trainCounter):
 class PlaceToStationCodesCache:
     """Class returs all stations corresponding to a city"""
 
-    def __init__(self):
-        self.cityToStationsMap = {}
+    cityToStationsMap={}
+
 
     def parseStationNameToStationCodes(self,jsonData):
         returnedData = json.loads(jsonData.content)
@@ -74,13 +74,13 @@ class PlaceToStationCodesCache:
         return  stationList
 
     def getStationsByCode(self,stationName):
-        if stationName in self.cityToStationsMap:
+        if stationName in PlaceToStationCodesCache.cityToStationsMap:
             return self.cityToStationsMap[stationName]
         else:
             jsonResponseNameToCode = urlfetch.fetch("http://api.railwayapi.com/name_to_code/station/"+ stationName + "/apikey/" + trainConstants.ERAILWAYAPI_APIKEY + "/",method=urlfetch.GET, deadline=45)
             stationList = self.parseStationNameToStationCodes(jsonResponseNameToCode)
             if stationList:
-                self.cityToStationsMap[stationName]=stationList
+                PlaceToStationCodesCache.cityToStationsMap[stationName]=stationList
             return stationList
 
 
