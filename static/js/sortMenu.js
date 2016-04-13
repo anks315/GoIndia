@@ -6,13 +6,19 @@ function showSortMenuMain(){
 	document.getElementById("sortMenuMain").innerHTML = sortMenuMain;
 	document.getElementById("modeMenuMain").innerHTML = modeMenuMain;
 	
-	var loading = '<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>'
-	document.getElementById("busData").innerHTML = loading;
+	var loadingBus = '<br/><br/><br/><br/><br/><div class="tabLoading"><table width="100%" style="text-align:center"><tr><td>Loading best bus options<br/></td></tr><tr><td><br/><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td></tr></table></div>'
+	document.getElementById("busData").innerHTML = loadingBus;
 	
-	//showBusJourneyList(busList);
-	showtransportJourneyList(trainList,"train");
+	var loadingTrain = '<br/><br/><br/><br/><br/><div class="tabLoading"><table width="100%" style="text-align:center"><tr><td>Loading best train options<br/></td></tr><tr><td><br/><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td></tr></table></div>'
+	document.getElementById("trainData").innerHTML = loadingTrain;
+	
+	var loadingFlight = '<br/><br/><br/><br/><br/><div class="tabLoading"><table width="100%" style="text-align:center"><tr><td>Loading best flight options<br/></td></tr><tr><td><br/><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></td></tr></table></div>'
+	document.getElementById("flightData").innerHTML = loadingFlight;
+	
+	showBusJourneyList(busList);
+	//showtransportJourneyList(trainList,"train");
 	showtransportJourneyList(flightList,"flight");
-	trainFilters();
+	//trainFilters();
 	flightFilters();
 	busFilters();
 	
